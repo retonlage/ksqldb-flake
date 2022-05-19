@@ -18,7 +18,7 @@
     };
     nixosModule = nixosModules.ksqldb;
     nixosModules = {
-      ksqldb = {config}: {
+      ksqldb = {config, ...}: {
         options = {
           services.ksqldb.enable = pkgs.mkOption {
             description = "Whether to enable ksqlDB";
