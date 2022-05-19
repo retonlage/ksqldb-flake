@@ -49,7 +49,7 @@
             systemd.services = {
               ksqldb = {
                 description = "Streaming SQL engine for Apache Kafka";
-                documentation = "http://docs.confluent.io/";
+                documentation = ["http://docs.confluent.io/"];
                 after = ["network.target" "confluent-kafka.target confluent-schema-registry.target"];
                 wantedBy = ["multi-user.target"];
                 script = "${cfg.package}/bin/ksql-server-start";
