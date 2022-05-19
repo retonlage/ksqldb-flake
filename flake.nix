@@ -16,6 +16,7 @@
         sha256 = "sha256-FmITqBncveb12PfLuCKhgAzvnL1GHRKsLGRBwSTSR+4=";
       };
     };
+    nixosModule = nixosModules.ksqldb;
     nixosModules = {
       ksqldb = {config}: {
         options = {
