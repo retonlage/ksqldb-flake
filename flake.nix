@@ -16,17 +16,16 @@
         sha256 = "sha256-FmITqBncveb12PfLuCKhgAzvnL1GHRKsLGRBwSTSR+4=";
         extraPostFetch =
         let bashScripts = [
-          fake
-          # bin/ksql-print-metrics
-          # bin/ksql
-          # bin/ksql-server-start
-          # bin/ksql-datagen
-          # bin/ksql-migrations
-          # bin/ksql-stop
-          # bin/ksql-restore-command-topic
-          # bin/ksql-test-runner
-          # bin/ksql-server-stop
-          # bin/ksql-run-class
+          "bin/ksql-print-metrics"
+          "bin/ksql"
+          "bin/ksql-server-start"
+          "bin/ksql-datagen"
+          "bin/ksql-migrations"
+          "bin/ksql-stop"
+          "bin/ksql-restore-command-topic"
+          "bin/ksql-test-runner"
+          "bin/ksql-server-stop"
+          "bin/ksql-run-class"
         ];
         in
         builtins.concatMap (bashScript: "substituteInPlace $out/${bashScript} --replace '#!/bin/bash' '${pkgs.bash}/bin/bash';") bashScripts;
