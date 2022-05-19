@@ -10,12 +10,12 @@
     pkgs = nixpkgs.legacyPackages."${system}";
   in rec {
     packages = {
-      ksqldb-bin = pkgs.fetchzip {
+      ksqldb-bin = pkgs.stdenv.mkDerivation {
         name = "ksqldb";
-        url = "http://ksqldb-packages.s3.amazonaws.com/archive/0.26/confluent-ksqldb-0.26.0.tar.gz";
-        sha256 = "sha256-LHhDbZu/KVTAUN7/H+aA64mkDcuTsdAKkSLIkNMMBz0=";
-        extraPostFetch =
-        let bashScripts = [
+        installPhase = ''
+          cp -r . $out
+          '';
+        patchPhase = let bashScripts = [
           "bin/ksql-print-metrics"
           "bin/ksql"
           "bin/ksql-server-start"
@@ -28,10 +28,11 @@
           "bin/ksql-run-class"
         ];
         in
-        pkgs.lib.strings.concatStrings ["echo t > $out/test"] ++ (
-          builtins.map
-            (bashScript: "substituteInPlace $out/${bashScript} --replace '#!/bin/bash' '${pkgs.bash}/bin/bash';")
-            bashScripts);
+        pkgs.lib.strings.concatStrings ( builtins.map ( bashScript: "#substituteInPlace ${bashScript} --replace '#!/bin/bash' '{pkgs.bash}/bin/bash';") bashScripts);
+        src = pkgs.fetchzip {
+          url = "http://ksqldb-packages.s3.amazonaws.com/archive/0.26/confluent-ksqldb-0.26.0.tar.gz";
+          sha256 = "sha256-FmITqBncveb12PfLuCKhgAzvnL1GHRKsLGRBwSTSR+4=";
+        };
       };
     };
     nixosModule = nixosModules.ksqldb;
