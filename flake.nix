@@ -28,7 +28,7 @@
           "bin/ksql-run-class"
         ];
         in
-        builtins.concatMap (bashScript: "substituteInPlace $out/${bashScript} --replace '#!/bin/bash' '${pkgs.bash}/bin/bash';") bashScripts;
+        pkgs.lib.strings.concatStrings (builtins.map (bashScript: "substituteInPlace $out/${bashScript} --replace '#!/bin/bash' '${pkgs.bash}/bin/bash';") bashScripts);
       };
     };
     nixosModule = nixosModules.ksqldb;
