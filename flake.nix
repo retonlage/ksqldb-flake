@@ -20,19 +20,19 @@
     nixosModules = {
       ksqldb = {config, ...}: {
         options = {
-          services.ksqldb.enable = pkgs.mkOption {
+          services.ksqldb.enable = pkgs.lib.mkOption {
             description = "Whether to enable ksqlDB";
             default = false;
             type = pkgs.types.bool;
           };
 
-          services.ksqldb.package = pkgs.mkOption {
+          services.ksqldb.package = pkgs.lib.mkOption {
             description = "The ksqlDB package to use";
             default = packages.ksqldb-bin;
             type = pkgs.types.package;
           };
 
-          services.ksqldb.bootstrap-servers = pkgs.mkOption {
+          services.ksqldb.bootstrap-servers = pkgs.lib.mkOption {
             description = "The set of Kafka brokers to bootstrap Kafka cluster information from";
             default = "localhost:9092";
             type = pkgs.types.str;
