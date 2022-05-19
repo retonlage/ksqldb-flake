@@ -70,6 +70,9 @@
                 description = "Streaming SQL engine for Apache Kafka";
                 documentation = ["http://docs.confluent.io/"];
                 after = ["network.target" "confluent-kafka.target confluent-schema-registry.target"];
+                environment = {
+                  LOG_DIR = "/var/log/ksql";
+                };
                 wantedBy = ["multi-user.target"];
                 script = "${cfg.package}/bin/ksql-server-start ${server-properties}";
                 serviceConfig = {
