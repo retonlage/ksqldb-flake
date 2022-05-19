@@ -14,6 +14,21 @@
         name = "ksqldb";
         url = "http://ksqldb-packages.s3.amazonaws.com/archive/0.26/confluent-ksqldb-0.26.0.tar.gz";
         sha256 = "sha256-FmITqBncveb12PfLuCKhgAzvnL1GHRKsLGRBwSTSR+4=";
+        extraPostFetch =
+        let bashScripts = [
+          bin/ksql-print-metrics
+          bin/ksql
+          bin/ksql-server-start
+          bin/ksql-datagen
+          bin/ksql-migrations
+          bin/ksql-stop
+          bin/ksql-restore-command-topic
+          bin/ksql-test-runner
+          bin/ksql-server-stop
+          bin/ksql-run-class
+        ];
+        in
+        concatMap (bashScript: "substituteInPlace ${bashScript} --replace '#!/bin/bash' '${pkgs.bash}/bin/bash';");
       };
     };
     nixosModule = nixosModules.ksqldb;
