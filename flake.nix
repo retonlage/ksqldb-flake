@@ -53,7 +53,7 @@
                 after = ["network.target" "confluent-kafka.target confluent-schema-registry.target"];
                 wantedBy = ["multi-user.target"];
                 script = "${cfg.package}/bin/ksql-server-start";
-                scriptArgs = ["${server-properties}"];
+                scriptArgs = "${server-properties}";
                 serviceConfig = {
                   Type = "simple";
                   User = "cp-ksql";
