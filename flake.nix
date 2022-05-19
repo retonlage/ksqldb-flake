@@ -52,8 +52,8 @@
                 documentation = ["http://docs.confluent.io/"];
                 after = ["network.target" "confluent-kafka.target confluent-schema-registry.target"];
                 wantedBy = ["multi-user.target"];
-                script = "${cfg.package}/bin/ksql-server-start";
-                scriptArgs = "${server-properties}";
+                script = "${pkgs.bash}/bin/bash";
+                scriptArgs = "${cfg.package}/bin/ksql-server-start ${server-properties}";
                 serviceConfig = {
                   Type = "simple";
                   User = "cp-ksql";
