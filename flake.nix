@@ -45,7 +45,7 @@
             ''
             bootstrap.servers=${cfg.bootstrap-servers}
             '';
-          in pkgs.mkIf cfg.enable {
+          in pkgs.lib.mkIf cfg.enable {
             systemd.services = {
               ksqldb = {
                 description = "Streaming SQL engine for Apache Kafka";
